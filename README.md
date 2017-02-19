@@ -34,4 +34,4 @@ If you follow the link labelled "skip already existing card images" after you al
 Those three links lead to independent sites controlling different aspects of the commentbooth. Including the actual card handling for both players.
 
 ### Showroom
-This is where everything will actually be displayed and look halfway decent. Open this site in its own window and make it fullscreen. In your recording tool, select only to record this window.
+This is where everything will actually be displayed and look halfway decent. Open this site in its own window and make it fullscreen (F11 in most browsers). In your recording tool, select only to record this window.
