@@ -2,7 +2,7 @@
 Little tool to show player's cards in hands as overlay for a video of a Game of Thrones LCG game.
 
 ## Installation
-You need (node.js)[https://nodejs.org/] version 6 or higher. And have git installed (to clone this repository). If you have all of that installed follow these steps:
+You need [node.js](https://nodejs.org/) version 6 or higher. And have git installed (to clone this repository). If you have all of that installed follow these steps:
 
 1. Open the command line and navigate to the folder where you would like to install.
 2. Run `git clone https://github.com/dave--/commentbooth.git`.
@@ -17,12 +17,12 @@ You should see some output, with the last line stating `Server started at http:/
 ## Usage
 After commentbooth was started, open up a Browser of your choice. If your choice is Internet Explorer you are a lost soul and need psychological help.
 
-You should be able to navigate to the URL that popped up when you started the server: (http://localhost:8080)[http://localhost:8080]
+You should be able to navigate to the URL that popped up when you started the server: [http://localhost:8080](http://localhost:8080)
 
 You will be presented with the main navigation.
 
 ### Crawler
-Currently the only crawler available gets all its data from (ThronesDB.com)[http://thronesdb.com].
+Currently the only crawler available gets all its data from [ThronesDB.com](http://thronesdb.com).
 
 If you start the crawler for the first time, it doesn't matter which of the two links you click. It is gonna take a few minutes.
 
