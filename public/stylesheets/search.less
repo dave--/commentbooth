@@ -1,0 +1,21 @@
+.cardsInList .synced[name="expandCard"],
+.cardsInList .synced[name="collapseCard"],
+.cardsInList .synced[name="removeCard"],
+.cardSelection .synced[name="addCard"] {
+	display: inline-block;
+}
+.cardsInList,
+.cardSelection {
+	float: left;
+	width: 50%;
+
+	.panel {
+		animation: none;
+		&.collapsed {
+			width: 100%;
+		}
+		&.removed {
+			display: none;
+		}
+	}
+}

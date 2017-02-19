@@ -1,0 +1,205 @@
+@collapsedWidth: 250px;
+@expandedWidth: 800px;
+
+
+@keyframes slideinleft {
+	from {
+		left: -@collapsedWidth;
+	}
+	to {
+		left: 0;
+	}
+}
+@keyframes slideinright {
+	from {
+		right: -@collapsedWidth;
+	}
+	to {
+		right: 0;
+	}
+}
+
+.panel {
+	border: 2px solid transparent;
+	color: #333;
+	background: #fff;
+	position: relative;
+	overflow: hidden;
+	width: @expandedWidth;
+	transition: width .5s ease .5s, height .5s ease 0s;
+	box-shadow: 0px 0px 0px 1px #fff;
+	margin-bottom: 1px;
+
+	.alignPanelsLeft & {
+		animation: slideinleft 1s ease;
+		left: 0;
+
+		&.removed {
+			left: -@expandedWidth - 5;
+			&.collapsed {
+				left: -@collapsedWidth - 5;
+			}
+		}
+	}	
+	.alignPanelsRight & {
+		animation: slideinright 1s ease;
+		right: 0;
+		float: right;
+		clear: right;
+
+		&.removed {
+			right: -@expandedWidth - 5;
+			&.collapsed {
+				right: -@collapsedWidth - 5;
+			}
+		}
+	}
+	&.collapsed {
+		width: @collapsedWidth;
+		height: 38px !important;
+		transition: width .5s ease 0s, height .5s ease .5s;
+	}
+	&.removed {
+		height: 0 !important;
+		border-width: 0;
+		margin: 0;
+		box-shadow: 0px 0px 0px 0px #fff;
+		transition: left .5s ease 0s, right .5s ease 0s, height .5s ease .5s, border-width .5s ease .5s, box-shadow .5s ease .5s;
+		animation-play-state: paused;
+	}
+	
+	.synced {
+		display: none;
+	}
+	
+	.panel-title {
+		font-family: 'Julius Sans One', sans-serif;
+		font-weight: 700;
+		font-size: 16px;
+		line-height: 18px;
+		height: 18px;
+		padding: 10px 15px;
+		margin: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.panel-image {
+		margin: 15px;
+		width: @collapsedWidth - 30;
+		height: 220px;
+		
+		.alignPanelsLeft & {
+			float: left;
+		}
+		.alignPanelsRight & {
+			float: right;
+		}
+		
+		.type-character& {
+			background-size: 280px 389px;
+			background-position: -54px -2px;
+		}
+		.type-agenda& {
+			background-size: 80%;
+			background-position: -55px -5px;
+		}
+		.type-event& {
+			background-size: 300px 419px;
+			background-position: -40px -55px;
+		}
+		.type-location& {
+			background-size: 300px 419px;
+			background-position: right -15px;
+		}
+		.type-attachment& {
+			background-size: 300px 419px;
+			background-position: -40px -20px;
+		}
+		.type-plot& {
+			background-size: 227px 162px;
+			background-position: center -5px;
+			height: 75px;
+		}
+	}
+	.panel-body {
+		font: 16px/20px 'Crimson Text', serif;
+		position: absolute;
+		top: 38px;
+		margin: 15px;
+		width: @expandedWidth - @collapsedWidth - 15;
+		
+		.alignPanelsLeft & {
+			left: @collapsedWidth - 15;
+		}
+		.alignPanelsRight & {
+			right: @collapsedWidth - 15;
+		}
+	}
+	.card-type {
+		font-weight: bold;
+	}
+	.card-props {
+		.icon-intrigue {
+			color: #13522f;
+		}
+		.icon-power {
+			color: #292e5f;
+		}
+		.icon-military {
+			color: #c8232a;
+		}
+	}
+	.card-traits {
+		font-weight: 700;
+		font-style: italic;
+		display: block;
+		margin: 0 0 10px;
+	}
+	.card-text {
+		.alignPanelsLeft & {
+			border-left-width: 2px;
+			border-left-style: solid;
+			padding-left: 6px;
+		}
+		.alignPanelsRight & {
+			border-right-width: 2px;
+			border-right-style: solid;
+			padding-right: 6px;
+		}
+		p {
+			margin: 6px 0;
+			
+			i {
+				font-weight: 700;
+			}
+		}
+	}
+	&.style-greyjoy        { .card-panel-coloring(#1d7a99, #fff); }
+	&.style-targaryen      { .card-panel-coloring(#1c1c1c, #fff); }
+	&.style-lannister      { .card-panel-coloring(#c00106, #fff); }
+	&.style-tyrell         { .card-panel-coloring(#509f16, #fff); }
+	&.style-baratheon      { .card-panel-coloring(#e3d852, #333); }
+	&.style-stark          { .card-panel-coloring(#cfcfcf, #333); }
+	&.style-martell        { .card-panel-coloring(#e89521, #333); }
+	&.style-thenightswatch { .card-panel-coloring(#7a7a7a, #333); }
+	&.style-neutral        { .card-panel-coloring(#a99560, #333); }
+}
+
+.card-panel-coloring(@primary, @secondary) {
+	border-color: @primary;
+
+	.panel-title {
+		background-color: @primary;
+		color: @secondary;
+	}
+	.card-faction {
+		[class^="icon-"],
+		[class*=" icon-"] {
+			color: @primary;
+		}
+	}
+	.card-text {
+		border-color: @primary;
+	}
+}

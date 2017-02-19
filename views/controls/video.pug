@@ -1,0 +1,24 @@
+extends /layout
+
+block content
+	h1 Video Control Room
+	form(method="POST", enctype="multipart/form-data")
+		div.set
+			input(type="text", id="videoSrc", name="videoSrc", value=videoSrc)
+			label(for="videoSrc") Path to video stream
+		div.set
+			input(type="file", id="videoUpload", name="videoUpload")
+			label(for="videoUpload")
+				| Upload a video (will be accessible at 
+				a(href="/video") /video
+				| )
+		div.set
+			button(type="submit") Submit
+	hr
+	div.set
+		button(type="button", name="playState", value="play").synced Play Video
+	div.set
+		button(type="button", name="playState", value="pause").synced Pause Video
+	div.set
+		input(type="range", id="volumeSlider", name="videoVolume", value=videoVolume, step=".05", min="0", max="1").synced
+		label(for="volumeSlider") Volume

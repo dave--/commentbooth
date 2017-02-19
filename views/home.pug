@@ -1,0 +1,23 @@
+extends /layout
+
+block content
+	h1 Comment Booth
+	ul
+		li
+			| Card Imports
+			ul
+				li
+					a(href="/crawl/thronesdb") Import cards from ThronesDB.com, skip already existing card images
+				li
+					a(href="/crawl/thronesdb?forceDownload=true") Import cards from ThronesDB.com, redownload already existing card images
+		li
+			| Controls
+			ul
+				li
+					a(href="/controls/hand/left") Cards in left hand
+				li
+					a(href="/controls/hand/right") Cards in right hand
+				li
+					a(href="/controls/video") Video
+		li
+			a(href="/showroom") Showroom

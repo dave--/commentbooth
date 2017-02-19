@@ -1,0 +1,11 @@
+extends /layout
+
+block content
+	h1= listName
+		|  Control Room
+	div.cardSelection(data-addToListName=listName)
+		div.set
+			input(type="text", name="queryCardName", id="queryCardName")
+			label(for="queryCardName") Card Name
+		div.results.alignPanelsLeft
+	div.cardsInList.alignPanelsLeft(data-listName=listName, class=listName)
