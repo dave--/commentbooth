@@ -1,6 +1,6 @@
 {
   "name": "commentbooth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Little tool to show player's cards in hands as overlay for a video of a Game of Thrones LCG game.",
   "main": "main.js",
   "dependencies": {
@@ -23,8 +23,7 @@
   },
   "author": "dave",
   "license": "ISC",
-  "repository" :
-  {
+  "repository" : {
     "type" : "git",
     "url" : "https://github.com/dave--/commentbooth.git"
   }
