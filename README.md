@@ -9,6 +9,11 @@ You need [node.js](https://nodejs.org/) version 6 or higher. And have git instal
 3. Switch into the newly created folder.
 4. Run `npm install`.
 
+If you already installed commentbooth as described above and just want to get an update run those commands in the folder you installed it in:
+
+1. `git pull`
+2. `npm update`
+
 ## Starting up
 Open the command line and navigate to the folder you installed commentbooth in. Then run `npm run main`.
 
