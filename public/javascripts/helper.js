@@ -15,6 +15,9 @@ var addClass = function (el, className) {
 // checks if given element has specified css class
 var hasClass = function (el, className) {
 	var re = new RegExp('( |^)' + className + '( |$)', 'g');
+	if (!el.className) {
+		return false;
+	}
 	return !!el.className.match(re);
 };
 // Helper to get height of element (including margin)

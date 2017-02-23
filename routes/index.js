@@ -27,6 +27,11 @@ routes.push(route.all(
 ));
 
 routes.push(route.all(
+	'/controls/recordings',
+	require('./controls/recordings')
+));
+
+routes.push(route.all(
 	'/showroom',
 	require('./showroom')
 ));

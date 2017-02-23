@@ -130,7 +130,7 @@ var synced = (function () {
 			// After a few seconds we should be fine with actually removing the dom element
 			window.setTimeout(function () {
 				for (var i = 0; i < targetCards.length; i++) {
-					//targetCards[i].parentNode.removeChild(targetCards[i]);
+					targetCards[i].parentNode.removeChild(targetCards[i]);
 				}
 			}, 5000);
 		},
@@ -169,6 +169,9 @@ var synced = (function () {
 	return {
 		setCards: function (newCardsArray) {
 			cards = newCardsArray;
+		},
+		getSocket: function () {
+			return socket;
 		}
 	}
 })();

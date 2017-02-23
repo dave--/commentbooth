@@ -1,0 +1,27 @@
+extends /layout
+
+block content
+	h1 Recordings
+	p
+		strong Important Note: 
+		| For both recording and playback, make sure that the video is paused before you start!
+	hr
+	p Press start recording and keep this page open to record all cards that are added/removed from any list.
+	p Once you are done press Stop recording. Make sure to save the output log before leaving this page (Simply Copy&Paste the textarea's contents to a file on your local system).
+	div.set
+		button(name="startRecording") Start recording
+	div.set
+		button(name="stopRecording", disabled=true) Stop recording
+	div.set
+		textarea(name="recordingLog", id="recordingLog")
+		label(for="recordingLog") Output Log
+	hr
+	p To start a playback simply paste a previously recorded log into below textarea and press Start playback.
+	p As long as you keep this site open, all the recorded inputs will be triggered again at the same point in time relative to the video.
+	div.set
+		button(name="startPlayback") Start playback
+	div.set
+		button(name="stopPlayback", disabled=true) Stop playback
+	div.set
+		textarea(name="playbackLog", id="playbackLog")
+		label(for="playbackLog") Insert playback log that you want to play in this textarea.

@@ -31,7 +31,7 @@ This is because it downloads all card images to later on be independent of a wor
 If you follow the link labelled "skip already existing card images" after you already downloaded the card images it will only download new ones and will be way faster.
 
 ### Controls
-Those three links lead to independent sites controlling different aspects of the commentbooth. Including the actual card handling for both players.
+Those four links lead to independent sites controlling different aspects of the commentbooth. Including the actual card handling for both players.
 
 ### Showroom
 This is where everything will actually be displayed and look halfway decent. Open this site in its own window and make it fullscreen (F11 in most browsers). In your recording tool, select only to record this window.
