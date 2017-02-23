@@ -2,7 +2,7 @@
 Little tool to show player's cards in hands as overlay for a video of a Game of Thrones LCG game.
 
 ## Installation
-You need [node.js](https://nodejs.org/) version 6 or higher. And have git installed (to clone this repository). If you have all of that installed follow these steps:
+You need [node.js](https://nodejs.org/) version 6 or higher. And have [git](https://git-scm.com/) installed (to clone this repository). If you have all of that installed follow these steps:
 
 1. Open the command line and navigate to the folder where you would like to install.
 2. Run `git clone https://github.com/dave--/commentbooth.git`.
