@@ -29,7 +29,7 @@ const serve = require('koa-static');
 app.use(serve('./public'));
 
 // setting up socket.io
-var io = require('socket.io')(8081);
+const io = require('socket.io')(8081);
 
 // initialize synchronizer
 app.context.synced = require('./lib/synced');
