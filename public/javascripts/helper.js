@@ -73,10 +73,11 @@ var buildCardElement = (function () {
 		html += '<div class="panel-image" style="background-image:url(' + cardImageRoot + json.localsrc + ');"></div>';
 		html += '<div class="panel-body">';
 			html += '<div class="card-faction"><span class="icon-' + json.faction_code + '"></span> ' + json.faction_name + '. ' + (json.is_loyal ? '' : 'Non-') + 'Loyal.</div>';
+			html += '<div class="card-info"><span class="card-type">' + json.type_name + '. </span>';
 			if (json.type_code === 'plot') {
 				html += ' Income: ' + json.income + '. Initiative: ' + json.initiative + '. Claim: ' + json.claim + '. Reserve: ' + json.reserve + '. Plot deck limit: ' + json.deck_limit + '.';
 			} else {
-				html += '<div class="card-info"><span class="card-type">' + json.type_name + '. </span><span class="card-props">Cost: ' + json.cost + '.';
+				html += '<span class="card-props">Cost: ' + json.cost + '.';
 				if (json.type_code === 'character') {
 					html += ' STR: ' + json.strength + '. ' + (json.is_military ? '<span class="icon-military"></span>' : '') + (json.is_intrigue ? '<span class="icon-intrigue"></span>' : '') + (json.is_power ? '<span class="icon-power"></span>' : '') + '</span><span class="card-traits">' + json.traits + '</span></div>';
 				}
