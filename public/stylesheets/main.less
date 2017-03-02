@@ -5,14 +5,15 @@
 
 .set {
 	clear: both;
+	display: flex;
 	label {
-		float: left;
-		width: 200px;
-		padding-right: 10px;
-		margin-right: -210px;
+		width: 50%;
+		order: -1;
+		max-width: 200px;
+		margin-right: 10px;
 	}
 	> :first-child {
-		margin-left: 210px;
+		max-width: 50%;
 	}
 	textarea {
 		width: 600px;
