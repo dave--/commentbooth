@@ -79,10 +79,10 @@ var buildCardElement = (function () {
 			} else {
 				html += '<span class="card-props">Cost: ' + json.cost + '.';
 				if (json.type_code === 'character') {
-					html += ' STR: ' + json.strength + '. ' + (json.is_military ? '<span class="icon-military"></span>' : '') + (json.is_intrigue ? '<span class="icon-intrigue"></span>' : '') + (json.is_power ? '<span class="icon-power"></span>' : '') + '</span><span class="card-traits">' + json.traits + '</span>';
+					html += ' STR: ' + json.strength + '. ' + (json.is_military ? '<span class="icon-military"></span>' : '') + (json.is_intrigue ? '<span class="icon-intrigue"></span>' : '') + (json.is_power ? '<span class="icon-power"></span>' : '') + '</span>';
 				}
 			}
-			html += '</div>';
+			html += '<span class="card-traits">' + json.traits + '</span></div>';
 			html += '<div class="card-text"><p>' + (json.text || '').replace(/\n/g, '</p><p>').replace(/(\[(.+?)\])/g, '<span class="icon-$2"></span>') + '</p></div>';
 		html += '</div>';
 		panel.innerHTML = html;
