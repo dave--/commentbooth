@@ -1,0 +1,73 @@
+@radius: 500px;
+@counterRadius: 50px;
+
+.leftScore,
+.rightScore {
+	position: absolute;
+	width: @radius * 2;
+	height: @radius * 2;
+	transition: transform .5s ease;
+	bottom: -@radius * 1.6;
+	z-index: 20;
+}
+.score {
+	background: url(/img/scoreBackdrop.png);
+	background-size: contain;
+	width: @counterRadius * 2;
+	height: @counterRadius * 2;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -@counterRadius;
+	margin-left: -@counterRadius;
+	color: #fff;
+	font-family: 'Julius Sans One', sans-serif;
+	font-size: @counterRadius * 1.2;
+	font-weight: bold;
+	text-shadow: 5px 2px 2px black;
+	text-align: center;
+	line-height: @counterRadius * 2;
+}
+
+.leftScore {
+	left: -@radius * 1.6;
+
+	.loop(@counter) when (@counter > 0) {
+		.loop((@counter - 1));
+		&[data-score="@{counter}"] {
+			transform: rotate(0deg + (@counter) * (-360 / 16));
+		}
+	}
+	.loop(16);
+
+	.score {
+		.loop(@counter) when (@counter > 0) {
+			.loop((@counter - 1));
+			&:nth-child( @{counter} ) {
+				transform: rotate(0deg + (@counter - 3) * (360 / 16)) translateX(@radius) rotate(45deg);
+			}
+		}
+		.loop(16);
+	}
+}
+.rightScore {
+	right: -@radius * 1.6;
+
+	.loop(@counter) when (@counter > 0) {
+		.loop((@counter - 1));
+		&[data-score="@{counter}"] {
+			transform: rotate(0deg + (@counter) * (360 / 16));
+		}
+	}
+	.loop(16);
+
+	.score {
+		.loop(@counter) when (@counter > 0) {
+			.loop((@counter - 1));
+			&:nth-child( @{counter} ) {
+				transform: rotate(0deg + (@counter - 11) * (-360 / 16)) translateX(@radius) rotate(135deg);
+			}
+		}
+		.loop(16);
+	}
+}

@@ -1,0 +1,16 @@
+extends /layout
+
+block content
+	h1 Score & First Player
+	div.set
+		input(type="number", id="scoreLeft", name="scoreLeft", value=scoreLeft, step="1", min="0", max="15").synced
+		label(for="scoreLeft") Score Left
+	div.set
+		input(type="number", id="scoreRight", name="scoreRight", value=scoreRight, step="1", min="0", max="15").synced
+		label(for="scoreRight") Score Right
+	div.set
+		select(id="firstplayer", name="firstplayer").synced
+			option(value="none", selected=(firstplayer === 'none')) No one
+			option(value="left", selected=(firstplayer === 'left')) Left
+			option(value="right", selected=(firstplayer === 'right')) Right
+		label(for="firstplayer") First Player

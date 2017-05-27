@@ -17,6 +17,11 @@ routes.push(route.all(
 ));
 
 routes.push(route.all(
+	'/controls/general',
+	require('./controls/general')
+));
+
+routes.push(route.all(
 	'/controls/hand/left',
 	require('./controls/hand')('leftHand')
 ));

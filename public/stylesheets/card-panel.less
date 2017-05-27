@@ -84,17 +84,34 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		transition: padding-left .5s ease 0s;
+
+		.alignPanelsLeft .collapsed& {
+			padding-left: 60px;
+			transition: padding-left .5s ease .5s;
+		}
+		.alignPanelsRight .collapsed& {
+			padding-right: 60px;
+			transition: padding-left .5s ease .5s;
+		}
 	}
 	.panel-image {
 		margin: 15px;
 		width: @collapsedWidth - 30;
 		height: 220px;
+		transition: transform .5s ease 0s;
 		
 		.alignPanelsLeft & {
 			float: left;
+			transform-origin: top left;
 		}
 		.alignPanelsRight & {
 			float: right;
+			transform-origin: top right;
+		}
+		.collapsed& {
+			transform: translateY(-52px) scale(.16);
+			transition: transform .5s ease .5s;
 		}
 		
 		.type-character& {

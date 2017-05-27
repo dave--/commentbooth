@@ -44,11 +44,33 @@ var synced = (function () {
 	// handle changes on "synced" elements
 	document.body.addEventListener('change', function (e) {
 		if (hasClass(e.target, 'synced')) {
+			// Change video volume
 			if (e.target.name === 'videoVolume') {
 				socket.emit('set', {
 					key: 'video.volume',
 					val: e.target.value
 				});
+			} else
+			// change left player score
+			if (e.target.name === 'scoreLeft') {
+				socket.emit('set', {
+					key: 'score.left',
+					val: e.target.value
+				})
+			} else
+			// change right player score
+			if (e.target.name === 'scoreRight') {
+				socket.emit('set', {
+					key: 'score.right',
+					val: e.target.value
+				})
+			} else
+			// change firstplayer
+			if (e.target.name === 'firstplayer') {
+				socket.emit('set', {
+					key: 'firstplayer',
+					val: e.target.value
+				})
 			}
 		}
 	});
@@ -67,6 +89,9 @@ var synced = (function () {
 		}
 		controller.changeVideoSource(data.video.src);
 		controller.changeVideoPlayState(data.video.playState);
+		controller.setScore(data.score.left, 'left');
+		controller.setScore(data.score.right, 'right');
+		controller.setFP(data.firstplayer);
 	});
 
 	// handle updates sent from server and decide which controller function to call
@@ -109,6 +134,18 @@ var synced = (function () {
 		// change video volume
 		if (key === 'video.volume') {
 			controller.changeVideoVolume(val);
+		} else
+		// change left player score
+		if (key === 'score.left') {
+			controller.setScore(val, 'left');
+		} else
+		// change right player score
+		if (key === 'score.right') {
+			controller.setScore(val, 'right');
+		} else
+		// change firstplayer
+		if (key === 'firstplayer') {
+			controller.setFP(val);
 		}
 	});
 
@@ -162,6 +199,22 @@ var synced = (function () {
 			var videos = $('video.video');
 			for (var i = 0; i < videos.length; i++) {
 				videos[i].volume = newVolume;
+			}
+		},
+		setScore: function (newScore, whichScore) {
+			var scoreEl = $('.' + whichScore + 'Score')[0];
+			if (scoreEl) {
+				scoreEl.setAttribute('data-score', newScore);
+			}
+		},
+		setFP: function (newFP) {
+			var allTokens = $('.firstplayerToken');
+			for (var i = 0; i < allTokens.length; i++) {
+				if (hasClass(allTokens[i], newFP + 'IsFP')) {
+					removeClass(allTokens[i], 'hidden');
+				} else if (!hasClass(allTokens[i], 'hidden')) {
+					addClass(allTokens[i], 'hidden');
+				}
 			}
 		}
 	}

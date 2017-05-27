@@ -53,7 +53,8 @@
 			record: (function () {
 				var log;
 				var handler = function (data) {
-					if (data.key.indexOf('cards.') === 0 && data.key.substr(data.key.length - 9) !== '.expanded') {
+					console.log(data);
+					if (data.key.indexOf('score.') === 0 || data.key.indexOf('cards.') === 0 && data.key.substr(data.key.length - 9) !== '.expanded') {
 						var timestamp = pauseOffset;
 						if (startTime >= 0) {
 							timestamp += Date.now() - startTime;

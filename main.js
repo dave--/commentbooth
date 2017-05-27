@@ -22,7 +22,9 @@ for (let i = 0; i < routes.length; i++) {
 
 // setting up less-css preprocessor
 const less = require('koa-less');
-app.use(less('./public'));
+app.use(less('./public', {
+	force: true
+}));
 
 // setting up static file handler
 const serve = require('koa-static');
@@ -39,6 +41,9 @@ app.context.synced.set('video.playState', 'pause');
 app.context.synced.set('video.volume', '1');
 app.context.synced.set('cards.leftHand', {});
 app.context.synced.set('cards.rightHand', {});
+app.context.synced.set('score.left', 0);
+app.context.synced.set('score.right', 0);
+app.context.synced.set('firstplayer', 'none');
 
 // start server
 app.listen(8080);
