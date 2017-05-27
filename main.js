@@ -23,7 +23,7 @@ for (let i = 0; i < routes.length; i++) {
 // setting up less-css preprocessor
 const less = require('koa-less');
 app.use(less('./public', {
-	force: true
+	force: false
 }));
 
 // setting up static file handler
