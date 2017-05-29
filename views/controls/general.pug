@@ -19,7 +19,7 @@ block content
 		select(id="agendaLeft", name="agendaLeft").synced
 			each val in agendas
 				option(value=JSON.stringify(val), selected=(agendaLeft.name === val.name))= val.name
-		label(for="agendaLeft") Left Player Faction
+		label(for="agendaLeft") Left Player Agenda
 	hr
 	h2 Right Player
 	div.set
@@ -37,4 +37,4 @@ block content
 		select(id="agendaRight", name="agendaRight").synced
 			each val in agendas
 				option(value=JSON.stringify(val), selected=(agendaRight.name === val.name))= val.name
-		label(for="agendaRight") Right Player Faction
+		label(for="agendaRight") Right Player Agenda
