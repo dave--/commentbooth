@@ -71,6 +71,34 @@ var synced = (function () {
 					key: 'firstplayer',
 					val: e.target.value
 				})
+			} else
+			// change left player faction
+			if (e.target.name === 'factionLeft') {
+				socket.emit('set', {
+					key: 'cards.leftMisc.faction',
+					val: JSON.parse(e.target.value)
+				})
+			} else
+			// change right player faction
+			if (e.target.name === 'factionRight') {
+				socket.emit('set', {
+					key: 'cards.rightMisc.faction',
+					val: JSON.parse(e.target.value)
+				})
+			} else
+			// change left player agenda
+			if (e.target.name === 'agendaLeft') {
+				socket.emit('set', {
+					key: 'cards.leftMisc.agenda',
+					val: JSON.parse(e.target.value)
+				})
+			} else
+			// change right player agenda
+			if (e.target.name === 'agendaRight') {
+				socket.emit('set', {
+					key: 'cards.rightMisc.agenda',
+					val: JSON.parse(e.target.value)
+				})
 			}
 		}
 	});
@@ -117,6 +145,10 @@ var synced = (function () {
 				} else {
 					controller.collapseCard(cardIdx, listName);
 				}
+			} else
+			// if card with specified IDX already exists, replace it
+			if ($('.' + listName + ' [data-cardIdx="' + cardIdx + '"]').length > 0) {
+				controller.changeCard(cardIdx, listName, val);
 			} else
 			// Add card to list
 			{
@@ -171,6 +203,14 @@ var synced = (function () {
 				}
 			}, 5000);
 		},
+		changeCard: function (cardIdx, listName, cardData) {
+			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]');
+			cardData.idx = cardIdx;
+			for (var i = 0; i < targetCards.length; i++) {
+				var el = buildCardElement(cardData, listName);
+				targetCards[i].parentNode.replaceChild(el, targetCards[i]);
+			}
+		},
 		expandCard: function (cardIdx, listName) {
 			var targetCards = $('.' + listName + ' .panel[data-cardIdx="' + cardIdx + '"]');
 			for (var i = 0; i < targetCards.length; i++) {
@@ -201,10 +241,10 @@ var synced = (function () {
 				videos[i].volume = newVolume;
 			}
 		},
-		setScore: function (newScore, whichScore) {
-			var scoreEl = $('.' + whichScore + 'Score')[0];
-			if (scoreEl) {
-				scoreEl.setAttribute('data-score', newScore);
+		setScore: function (newScore, whichPlayer) {
+			var scoreEls = $('.' + whichPlayer + 'Score');
+			for (var i = scoreEls.length - 1; i >= 0; i--) {
+				scoreEls[i].setAttribute('data-score', newScore);
 			}
 		},
 		setFP: function (newFP) {

@@ -1,16 +1,40 @@
 extends /layout
 
 block content
-	h1 Score & First Player
+	h1 General Stuff
+	hr
+	h2 Left Player
+	div.set
+		input(id="firstplayerLeft", type="radio", name="firstplayer", checked=(firstplayer === 'left'), value="left").synced
+		label(for="firstplayerLeft") Is First Player
 	div.set
 		input(type="number", id="scoreLeft", name="scoreLeft", value=scoreLeft, step="1", min="0", max="15").synced
-		label(for="scoreLeft") Score Left
+		label(for="scoreLeft") Score
+	div.set
+		select(id="factionLeft", name="factionLeft").synced
+			each val in factionCards
+				option(value=JSON.stringify(val), selected=(factionLeft.name === val.name))= val.name
+		label(for="factionLeft") Left Player Faction
+	div.set
+		select(id="agendaLeft", name="agendaLeft").synced
+			each val in agendas
+				option(value=JSON.stringify(val), selected=(agendaLeft.name === val.name))= val.name
+		label(for="agendaLeft") Left Player Faction
+	hr
+	h2 Right Player
+	div.set
+		input(id="firstplayerRight", type="radio", name="firstplayer", checked=(firstplayer === 'right'), value="right").synced
+		label(for="firstplayerRight") Is First Player
 	div.set
 		input(type="number", id="scoreRight", name="scoreRight", value=scoreRight, step="1", min="0", max="15").synced
 		label(for="scoreRight") Score Right
 	div.set
-		select(id="firstplayer", name="firstplayer").synced
-			option(value="none", selected=(firstplayer === 'none')) No one
-			option(value="left", selected=(firstplayer === 'left')) Left
-			option(value="right", selected=(firstplayer === 'right')) Right
-		label(for="firstplayer") First Player
+		select(id="factionRight", name="factionRight").synced
+			each val in factionCards
+				option(value=JSON.stringify(val), selected=(factionRight.name === val.name))= val.name
+		label(for="factionRight") Right Player Faction
+	div.set
+		select(id="agendaRight", name="agendaRight").synced
+			each val in agendas
+				option(value=JSON.stringify(val), selected=(agendaRight.name === val.name))= val.name
+		label(for="agendaRight") Right Player Faction

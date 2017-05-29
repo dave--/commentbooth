@@ -9,16 +9,21 @@ html(lang="en")
 		video.video
 		div.leftHand.alignPanelsLeft
 		div.rightHand.alignPanelsRight
+
+		div.leftMisc.alignPanelsLeft
 		div.leftScore(data-score="0")
 			- var n = 0;
 			while n < 16
 				div.score= n++
+		div.firstplayerToken.leftIsFP
+
+		div.rightMisc.alignPanelsRight
 		div.rightScore(data-score="0")
 			- var n = 0;
 			while n < 16
 				div.score= n++
-		div.firstplayerToken.leftIsFP
 		div.firstplayerToken.rightIsFP
+
 		script(src="//localhost:8081/socket.io/socket.io.js")
 		script(src="/javascripts/helper.js")
 		script(src="/javascripts/synced.js")

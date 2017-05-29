@@ -6,7 +6,7 @@ var $ = document.querySelectorAll.bind(document);
 // remove css class from element
 var removeClass = function (el, className) {
 	var re = new RegExp('( |^)' + className + '( |$)','g');
-	el.className = el.className.replace(re, '');
+	el.className = el.className.replace(re, ' ');
 };
 // add css class to element
 var addClass = function (el, className) {
@@ -65,10 +65,12 @@ var buildCardElement = (function () {
 		panel.setAttribute('data-cardIdx', json.idx);
 		var html = '';
 		html += '<h3 class="panel-title">';
-		html += '<button type="button" class="synced" name="addCard" value="' + json.idx + '" data-listName="' + listName + '">Add</button>';
-		html += '<button type="button" class="synced" name="removeCard" value="' + json.idx + '" data-listName="' + listName + '">Remove</button>';
-		html += '<button type="button" class="synced" name="expandCard" value="' + json.idx + '" data-listName="' + listName + '">Expand</button>';
-		html += '<button type="button" class="synced" name="collapseCard" value="' + json.idx + '" data-listName="' + listName + '">Collapse</button>';
+		if (listName) {
+			html += '<button type="button" class="synced" name="addCard" value="' + json.idx + '" data-listName="' + listName + '">Add</button>';
+			html += '<button type="button" class="synced" name="removeCard" value="' + json.idx + '" data-listName="' + listName + '">Remove</button>';
+			html += '<button type="button" class="synced" name="expandCard" value="' + json.idx + '" data-listName="' + listName + '">Expand</button>';
+			html += '<button type="button" class="synced" name="collapseCard" value="' + json.idx + '" data-listName="' + listName + '">Collapse</button>';
+		}
 		html += (json.is_unique ? '<span class="icon-unique"></span> ' : '') + json.name + '</h3>';
 		html += '<div class="panel-image" style="background-image:url(' + cardImageRoot + json.localsrc + ');"></div>';
 		html += '<div class="panel-body">';
@@ -77,7 +79,9 @@ var buildCardElement = (function () {
 			if (json.type_code === 'plot') {
 				html += ' Income: ' + json.income + '. Initiative: ' + json.initiative + '. Claim: ' + json.claim + '. Reserve: ' + json.reserve + '. Plot deck limit: ' + json.deck_limit + '.';
 			} else {
-				html += '<span class="card-props">Cost: ' + json.cost + '.';
+				if (json.type_code !== 'agenda') {
+					html += '<span class="card-props">Cost: ' + json.cost + '.';
+				}
 				if (json.type_code === 'character') {
 					html += ' STR: ' + json.strength + '. ' + (json.is_military ? '<span class="icon-military"></span>' : '') + (json.is_intrigue ? '<span class="icon-intrigue"></span>' : '') + (json.is_power ? '<span class="icon-power"></span>' : '') + '</span>';
 				}

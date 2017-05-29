@@ -39,11 +39,21 @@ app.context.synced.setIO(io);
 app.context.synced.set('video.src', '/video');
 app.context.synced.set('video.playState', 'pause');
 app.context.synced.set('video.volume', '1');
-app.context.synced.set('cards.leftHand', {});
-app.context.synced.set('cards.rightHand', {});
 app.context.synced.set('score.left', 0);
 app.context.synced.set('score.right', 0);
 app.context.synced.set('firstplayer', 'none');
+app.context.synced.set('cards', {
+	'leftHand': {},
+	'rightHand': {},
+	'leftMisc': {
+		'agenda': {name: 'none', faction_code: 'none'},
+		'faction': {name: 'none', faction_code: 'none'}
+	},
+	'rightMisc': {
+		'agenda': {name: 'none', faction_code: 'none'},
+		'faction': {name: 'none', faction_code: 'none'}
+	}
+});
 
 // start server
 app.listen(8080);
