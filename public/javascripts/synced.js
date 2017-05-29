@@ -99,6 +99,13 @@ var synced = (function () {
 					key: 'cards.rightMisc.agenda',
 					val: JSON.parse(e.target.value)
 				})
+			} else
+			// change challenge icon
+			if (e.target.name === 'challenge') {
+				socket.emit('set', {
+					key: 'challenge',
+					val: e.target.value
+				})
 			}
 		}
 	});
@@ -120,6 +127,7 @@ var synced = (function () {
 		controller.setScore(data.score.left, 'left');
 		controller.setScore(data.score.right, 'right');
 		controller.setFP(data.firstplayer);
+		controller.setChallengeIcon(data.challenge);
 	});
 
 	// handle updates sent from server and decide which controller function to call
@@ -178,6 +186,10 @@ var synced = (function () {
 		// change firstplayer
 		if (key === 'firstplayer') {
 			controller.setFP(val);
+		} else
+		// change challenge icon
+		if (key === 'challenge') {
+			controller.setChallengeIcon(val);
 		}
 	});
 
@@ -255,6 +267,12 @@ var synced = (function () {
 				} else if (!hasClass(allTokens[i], 'hidden')) {
 					addClass(allTokens[i], 'hidden');
 				}
+			}
+		},
+		setChallengeIcon: function (newChallenge) {
+			var els = $('.challengeIcon');
+			for (var i = els.length - 1; i >= 0; i--) {
+				els[i].setAttribute('data-challenge', newChallenge);
 			}
 		}
 	}

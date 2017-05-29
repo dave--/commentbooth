@@ -2,6 +2,12 @@ extends /layout
 
 block content
 	h1 General Stuff
+	div.set
+		input(id="firstplayerNone", type="radio", name="firstplayer", checked=(firstplayer === 'none'), value="none").synced
+		label(for="firstplayerNone") Hide First Player
+	div.set
+		input(type="radio", id="noChallenge", name="challenge", checked=(challenge === 'noChallenge'), value="noChallenge").synced
+		label(for="noChallenge") Hide Challenge Icon
 	hr
 	h2 Left Player
 	div.set
@@ -20,6 +26,15 @@ block content
 			each val in agendas
 				option(value=JSON.stringify(val), selected=(agendaLeft.name === val.name))= val.name
 		label(for="agendaLeft") Left Player Agenda
+	div.set
+		input(type="radio", id="leftMil", name="challenge", checked=(challenge === 'leftMil'), value="leftMil").synced
+		label(for="leftMil") Show Military Challenge Icon
+	div.set
+		input(type="radio", id="leftInt", name="challenge", checked=(challenge === 'leftInt'), value="leftInt").synced
+		label(for="leftInt") Show Intrigue Challenge Icon
+	div.set
+		input(type="radio", id="leftPower", name="challenge", checked=(challenge === 'leftPower'), value="leftPower").synced
+		label(for="leftPower") Show Power Challenge Icon
 	hr
 	h2 Right Player
 	div.set
@@ -38,3 +53,12 @@ block content
 			each val in agendas
 				option(value=JSON.stringify(val), selected=(agendaRight.name === val.name))= val.name
 		label(for="agendaRight") Right Player Agenda
+	div.set
+		input(type="radio", id="rightMil", name="challenge", checked=(challenge === 'rightMil'), value="rightMil").synced
+		label(for="rightMil") Show Military Challenge Icon
+	div.set
+		input(type="radio", id="rightInt", name="challenge", checked=(challenge === 'rightInt'), value="rightInt").synced
+		label(for="rightInt") Show Intrigue Challenge Icon
+	div.set
+		input(type="radio", id="rightPower", name="challenge", checked=(challenge === 'rightPower'), value="rightPower").synced
+		label(for="rightPower") Show Power Challenge Icon

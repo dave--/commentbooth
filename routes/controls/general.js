@@ -49,6 +49,7 @@ module.exports = function* () {
 		factionCards: factionCards,
 		agendaLeft: this.synced.get('cards.leftMisc.agenda'),
 		agendaRight: this.synced.get('cards.rightMisc.agenda'),
-		agendas: agendas
+		agendas: agendas,
+		challenge: this.synced.get('challenge')
 	});
 }

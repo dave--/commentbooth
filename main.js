@@ -42,6 +42,7 @@ app.context.synced.set('video.volume', '1');
 app.context.synced.set('score.left', 0);
 app.context.synced.set('score.right', 0);
 app.context.synced.set('firstplayer', 'none');
+app.context.synced.set('challenge', 'none');
 app.context.synced.set('cards', {
 	'leftHand': {},
 	'rightHand': {},
