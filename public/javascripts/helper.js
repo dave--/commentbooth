@@ -2,7 +2,25 @@
  * This script contains a few small helper functions to avoid having to use jQuery (which would be overkill)
  */
 // writing document.querySelectorAll is waaaayyyyy too much effort ;-)
-var $ = document.querySelectorAll.bind(document);
+// also, need second argument to be able to define context
+var $ = function (selector, context) {
+	if (context) {
+		return context.querySelectorAll(selector);
+	} else {
+		return document.querySelectorAll(selector);
+	}
+}
+// get first parent node which matches passed CSS selector
+var findParent = function (el, selector) {
+	var parent = el.parentNode;
+	if (parent.matches(selector)) {
+		return parent;
+	} else if (parent.parentNode) {
+		return findParent(parent, selector);
+	} else {
+		return null;
+	}
+}
 // remove css class from element
 var removeClass = function (el, className) {
 	var re = new RegExp('( |^)' + className + '( |$)','g');
