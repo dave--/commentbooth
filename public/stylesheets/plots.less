@@ -1,0 +1,88 @@
+@keyframes growvertically {
+	from {
+		border-top-width: 0;
+		border-bottom-width: 0;
+		height: 0;
+		margin-bottom: 0;
+	}
+	to {
+		border-top-width: 2px;
+		border-bottom-width: 2px;
+		height: 38px;
+		margin-bottom: 1px;
+	}
+}
+
+.leftPlots {
+	position: absolute;
+	left: 254px;
+	bottom: 0;
+}
+.rightPlots {
+	position: absolute;
+	right: 254px;
+	bottom: 0;
+}
+.leftPlots,
+.rightPlots {
+	.panel {
+		animation-name: growvertically;
+
+		&.removed.collapsed,
+		&.removed {
+			left: auto;
+			right: auto;
+		}
+	}
+	.panel {
+		transition: width .5s ease .5s, height .5s ease, border-top-width .5s ease, border-bottom-width .5s ease, margin .5s ease;
+
+		&.collapsed {
+			border-left-width: 2px;
+			border-right-width: 2px;
+			transition: width .5s ease 0s, height .5s ease .5s, border-top-width .5s ease .5s, border-bottom-width .5s ease .5s, margin .5s ease .5s, box-shadow 0s ease 1s;
+		}
+	}
+	&.hidePiles .leftUsedPlots .panel,
+	&.hidePiles .rightUsedPlots .panel,
+	&.hidePiles .leftUnusedPlots .panel,
+	&.hidePiles .rightUnusedPlots .panel {
+		height: 0 !important;
+		border-top-width: 0;
+		border-bottom-width: 0;
+		margin: 0;
+		width: @collapsedWidth;
+		animation-duration: 0s;
+	}
+}
+
+
+.rightUsedPlots,
+.leftUsedPlots,
+.rightCurrentPlot,
+.leftCurrentPlot,
+.rightUnusedPlots,
+.leftUnusedPlots {
+	padding: 0 1px;
+	width: @collapsedWidth + 4;
+	border: 0px solid transparent;
+	transition: border .5s ease;
+}
+.rightUnusedPlots:not(:empty),
+.leftUnusedPlots:not(:empty) {
+	border-top-width: 32px;
+
+	.hidePiles & {
+		border-top-width: 0;
+		transition: border .5s ease .5s;
+	}
+}
+.rightUsedPlots:not(:empty),
+.leftUsedPlots:not(:empty) {
+	border-bottom-width: 32px;
+
+	.hidePiles & {
+		border-bottom-width: 0;
+		transition: border .5s ease .5s;
+	}
+}

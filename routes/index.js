@@ -22,13 +22,43 @@ routes.push(route.all(
 ));
 
 routes.push(route.all(
-	'/controls/hand/left',
+	'/controls/left/hand',
 	require('./controls/hand')('leftHand')
 ));
 
 routes.push(route.all(
-	'/controls/hand/right',
+	'/controls/left/unusedPlots',
+	require('./controls/hand')('leftUnusedPlots', ['leftUsedPlots', 'leftCurrentPlot'])
+));
+
+routes.push(route.all(
+	'/controls/left/currentPlot',
+	require('./controls/hand')('leftCurrentPlot', ['leftUnusedPlots', 'leftUsedPlots'])
+));
+
+routes.push(route.all(
+	'/controls/left/usedPlots',
+	require('./controls/hand')('leftUsedPlots', ['leftCurrentPlot', 'leftUnusedPlots'])
+));
+
+routes.push(route.all(
+	'/controls/right/hand',
 	require('./controls/hand')('rightHand')
+));
+
+routes.push(route.all(
+	'/controls/right/unusedPlots',
+	require('./controls/hand')('rightUnusedPlots', ['rightUsedPlots', 'rightCurrentPlot'])
+));
+
+routes.push(route.all(
+	'/controls/right/currentPlot',
+	require('./controls/hand')('rightCurrentPlot', ['rightUnusedPlots', 'rightUsedPlots'])
+));
+
+routes.push(route.all(
+	'/controls/right/usedPlots',
+	require('./controls/hand')('rightUsedPlots', ['rightCurrentPlot', 'rightUnusedPlots'])
 ));
 
 routes.push(route.all(

@@ -1,5 +1,7 @@
 var synced = (function () {
-	var cards = [];
+	var cards = [],
+		discardPile = {},
+		hls;
 
 	// handle clicks on "synced" elements
 	document.body.addEventListener('click', function (e) {
@@ -106,6 +108,20 @@ var synced = (function () {
 					key: 'challenge',
 					val: e.target.value
 				})
+			} else
+			// hide/show left player used and unused plot piles
+			if (e.target.name === 'leftHidePlots') {
+				socket.emit('set', {
+					key: 'leftHidePlots',
+					val: e.target.checked
+				})
+			} else
+			// hide/show right player used and unused plot piles
+			if (e.target.name === 'rightHidePlots') {
+				socket.emit('set', {
+					key: 'rightHidePlots',
+					val: e.target.checked
+				})
 			}
 		}
 	});
@@ -122,12 +138,14 @@ var synced = (function () {
 				}
 			}
 		}
-		controller.changeVideoSource(data.video.src);
-		controller.changeVideoPlayState(data.video.playState);
+		controller.changeVideoSourceAndType();
 		controller.setScore(data.score.left, 'left');
 		controller.setScore(data.score.right, 'right');
 		controller.setFP(data.firstplayer);
 		controller.setChallengeIcon(data.challenge);
+		controller.setPlotpileVisibility(data.leftHidePlots, 'left');
+		controller.setPlotpileVisibility(data.rightHidePlots, 'right');
+		discardPile = data.cards.discardPile;
 	});
 
 	// handle updates sent from server and decide which controller function to call
@@ -164,8 +182,8 @@ var synced = (function () {
 			}
 		} else
 		// change video source
-		if (key === 'video.src') {
-			controller.changeVideoSource(val);
+		if (key === 'video') {
+			controller.changeVideoSourceAndType();
 		} else
 		// change video play state (e.g. start playing or pause video)
 		if (key === 'video.playState') {
@@ -190,6 +208,14 @@ var synced = (function () {
 		// change challenge icon
 		if (key === 'challenge') {
 			controller.setChallengeIcon(val);
+		} else
+		// change left player plot pile visibility
+		if (key === 'leftHidePlots') {
+			controller.setPlotpileVisibility(val, 'left');
+		} else
+		// change left player plot pile visibility
+		if (key === 'rightHidePlots') {
+			controller.setPlotpileVisibility(val, 'right');
 		}
 	});
 
@@ -203,9 +229,19 @@ var synced = (function () {
 			}
 		},
 		removeCard: function (cardIdx, listName) {
-			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]');
+			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]'),
+				discardPiles = $('.' + (discardPile[listName] || 'noDiscardPileDefined'));
 			// Only setting removed class to give some time for animations/transitions
 			for (var i = 0; i < targetCards.length; i++) {
+				// add card to discard pile
+				for (var j = 0; j < discardPiles.length; j++) {
+					var clone = targetCards[i].cloneNode(true);
+					discardPiles[0].appendChild(clone);
+					var toUpdate = $('[data-listname]', clone);
+					for (var j = 0; j < toUpdate.length; j++) {
+						toUpdate[j].setAttribute('data-listname', discardPile[listName]);
+					}
+				}
 				addClass(targetCards[i], 'removed');
 			}
 			// After a few seconds we should be fine with actually removing the dom element
@@ -235,20 +271,50 @@ var synced = (function () {
 				addClass(targetCards[i], 'collapsed');
 			}
 		},
-		changeVideoSource: function (newSrc) {
-			var videos = $('video.video');
-			for (var i = 0; i < videos.length; i++) {
-				videos[i].src = newSrc;
-			}
+		changeVideoSourceAndType: function () {
+			var oldVideoElements = $('.video');
+			socket.emit('get', 'video.type', function (type) {
+				socket.emit('get', 'video.src', function (src) {
+					for (var i = 0; i < oldVideoElements.length; i++) {
+						var newVideoElement;
+
+						if (hls) {
+							hls.destroy();
+						}
+
+						if (type === 'Video') {
+							newVideoElement = document.createElement('video');
+							newVideoElement.src = src;
+						} else if (type === 'MJPEG') {
+							newVideoElement = document.createElement('img');
+							newVideoElement.src = src;
+						} else if (type === 'M3U8') {
+							newVideoElement = document.createElement('video')
+							hls = new Hls();
+							hls.attachMedia(newVideoElement);
+							hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+								hls.loadSource(src);
+							});
+						}
+
+						newVideoElement.className = 'video';
+
+						oldVideoElements[i].parentNode.replaceChild(newVideoElement, oldVideoElements[i]);
+					}
+					socket.emit('get', 'video.playState', function (playState) {
+						controller.changeVideoPlayState(playState);
+					})
+				});
+			});
 		},
 		changeVideoPlayState: function (newPlayState) {
-			var videos = $('video.video');
+			var videos = $('video');
 			for (var i = 0; i < videos.length; i++) {
 				videos[i][newPlayState]();
 			}
 		},
 		changeVideoVolume: function (newVolume) {
-			var videos = $('video.video');
+			var videos = $('.video');
 			for (var i = 0; i < videos.length; i++) {
 				videos[i].volume = newVolume;
 			}
@@ -273,6 +339,16 @@ var synced = (function () {
 			var els = $('.challengeIcon');
 			for (var i = els.length - 1; i >= 0; i--) {
 				els[i].setAttribute('data-challenge', newChallenge);
+			}
+		},
+		setPlotpileVisibility: function (hidden, whichPlayer) {
+			var els = $('.' + whichPlayer + 'Plots');
+			for (var i = els.length - 1; i >= 0; i--) {
+				if (!hidden) {
+					removeClass(els[i], 'hidePiles');
+				} else if (!hasClass(els[i], 'hidePiles')) {
+					addClass(els[i], 'hidePiles');
+				}
 			}
 		}
 	}

@@ -4,6 +4,12 @@ block content
 	h1 Video Control Room
 	form(method="POST", enctype="multipart/form-data")
 		div.set
+			select(name="videoType", id="videoType")
+				option(value="Video", selected=(videoType === 'Video')) Video
+				option(value="MJPEG", selected=(videoType === 'MJPEG')) MJPEG
+				option(value="M3U8", selected=(videoType === 'M3U8')) M3U8
+			label(for="videoType") Video Type
+		div.set
 			input(type="text", id="videoSrc", name="videoSrc", value=videoSrc)
 			label(for="videoSrc") Path to video stream
 		div.set

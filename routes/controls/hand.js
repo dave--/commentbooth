@@ -1,9 +1,10 @@
-module.exports = function (listName) {
+module.exports = function (listName, relevantButHiddenLists) {
 
 	return function* () {
 		// serve view
 		this.render('controls/hand', {
-			listName: listName
+			listName: listName,
+			relevantButHiddenLists: relevantButHiddenLists
 		});
 	}
 }

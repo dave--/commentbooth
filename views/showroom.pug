@@ -10,6 +10,15 @@ html(lang="en")
 		div.leftHand.alignPanelsLeft
 		div.rightHand.alignPanelsRight
 
+		div.leftPlots
+			div.leftUsedPlots.alignPanelsLeft
+			div.leftCurrentPlot.alignPanelsLeft
+			div.leftUnusedPlots.alignPanelsLeft
+		div.rightPlots
+			div.rightUsedPlots.alignPanelsRight
+			div.rightCurrentPlot.alignPanelsRight
+			div.rightUnusedPlots.alignPanelsRight
+
 		div.leftMisc.alignPanelsLeft
 		div.leftScore(data-score="0")
 			- var n = 0;
@@ -27,5 +36,6 @@ html(lang="en")
 		div.challengeIcon
 
 		script(src="//localhost:8081/socket.io/socket.io.js")
+		script(src="/javascripts/hls.js")
 		script(src="/javascripts/helper.js")
 		script(src="/javascripts/synced.js")
