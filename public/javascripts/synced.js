@@ -135,7 +135,6 @@ var synced = (function () {
 
 	// handle initial data
 	socket.on('init', function (data) {
-		console.log(data.cards.leftHand);
 		for (var listName in data.cards) {
 			controller.clearList(listName);
 			for (var idx in data.cards[listName]) {
