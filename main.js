@@ -36,42 +36,46 @@ const io = require('socket.io')(8081);
 // initialize synchronizer
 app.context.synced = require('./lib/synced');
 app.context.synced.setIO(io);
-app.context.synced.set('video', {
-	type: 'Video',
-	src: '/video',
-	playState: 'pause',
-	volume: 1
-})
-app.context.synced.set('score.left', 0);
-app.context.synced.set('score.right', 0);
-app.context.synced.set('firstplayer', 'none');
-app.context.synced.set('challenge', 'noChallenge');
-app.context.synced.set('cards', {
-	'leftHand': {},
-	'rightHand': {},
-	'leftUnusedPlots': {},
-	'leftCurrentPlot': {},
-	'leftUsedPlots': {},
-	'rightUnusedPlots': {},
-	'rightCurrentPlot': {},
-	'rightUsedPlots': {},
-	'leftHidePlots': false,
-	'rightHidePlots': false,
-	'leftMisc': {
-		'agenda': {name: 'none', faction_code: 'none'},
-		'faction': {name: 'none', faction_code: 'none'}
+app.context.synced.initData({
+	'video': {
+		type: 'Video',
+		src: '/video',
+		playState: 'pause',
+		volume: 1
 	},
-	'rightMisc': {
-		'agenda': {name: 'none', faction_code: 'none'},
-		'faction': {name: 'none', faction_code: 'none'}
+	'score': {
+		'left': 0,
+		'right': 0
 	},
-	'discardPile': {
-		'leftUsedPlots': 'leftUnusedPlots',
-		'leftUnusedPlots': 'leftCurrentPlot',
-		'leftCurrentPlot': 'leftUsedPlots',
-		'rightUsedPlots': 'rightUnusedPlots',
-		'rightUnusedPlots': 'rightCurrentPlot',
-		'rightCurrentPlot': 'rightUsedPlots'
+	'firstplayer': 'none',
+	'challenge': 'noChallenge',
+	'cards': {
+		'leftHand': {},
+		'rightHand': {},
+		'leftUnusedPlots': {},
+		'leftCurrentPlot': {},
+		'leftUsedPlots': {},
+		'rightUnusedPlots': {},
+		'rightCurrentPlot': {},
+		'rightUsedPlots': {},
+		'leftHidePlots': false,
+		'rightHidePlots': false,
+		'leftMisc': {
+			'agenda': {name: 'none', faction_code: 'none'},
+			'faction': {name: 'none', faction_code: 'none'}
+		},
+		'rightMisc': {
+			'agenda': {name: 'none', faction_code: 'none'},
+			'faction': {name: 'none', faction_code: 'none'}
+		},
+		'discardPile': {
+			'leftUsedPlots': 'leftUnusedPlots',
+			'leftUnusedPlots': 'leftCurrentPlot',
+			'leftCurrentPlot': 'leftUsedPlots',
+			'rightUsedPlots': 'rightUnusedPlots',
+			'rightUnusedPlots': 'rightCurrentPlot',
+			'rightCurrentPlot': 'rightUsedPlots'
+		}
 	}
 });
 

@@ -3,6 +3,8 @@ extends /layout
 block content
 	h1 General Stuff
 	div.set
+		button.synced(type="button", name="reset", value="reset") Reset all data
+	div.set
 		input(id="firstplayerNone", type="radio", name="firstplayer", checked=(firstplayer === 'none'), value="none").synced
 		label(for="firstplayerNone") Hide First Player
 	div.set

@@ -4,7 +4,7 @@ module.exports = function (listName, relevantButHiddenLists) {
 		// serve view
 		this.render('controls/hand', {
 			listName: listName,
-			relevantButHiddenLists: relevantButHiddenLists
+			relevantButHiddenLists: relevantButHiddenLists || []
 		});
 	}
 }

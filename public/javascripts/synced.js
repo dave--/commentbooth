@@ -40,6 +40,10 @@ var synced = (function () {
 					key: 'cards.' + e.target.getAttribute('data-listName') + '.' + e.target.value + '.expanded',
 					val: false
 				});
+			} else
+			// Reset all data
+			if (e.target.name === 'reset') {
+				socket.emit('reset');
 			}
 		}
 	});
@@ -131,7 +135,9 @@ var synced = (function () {
 
 	// handle initial data
 	socket.on('init', function (data) {
+		console.log(data.cards.leftHand);
 		for (var listName in data.cards) {
+			controller.clearList(listName);
 			for (var idx in data.cards[listName]) {
 				if (data.cards[listName][idx] !== null) {
 					controller.addCard(idx, listName, data.cards[listName][idx]);
@@ -220,6 +226,12 @@ var synced = (function () {
 	});
 
 	var controller = {
+		clearList: function (listName) {
+			var cards = $('.' + listName + ' [data-cardIdx]');
+			for (var i = 0; i < cards.length; i++) {
+				controller.removeCard(cards[i].getAttribute('data-cardIdx'), listName, true);
+			}
+		},
 		addCard: function (cardIdx, listName, cardData) {
 			var targetLists = $('.' + listName);
 			cardData.idx = cardIdx;
@@ -228,18 +240,20 @@ var synced = (function () {
 				targetLists[i].appendChild(el);
 			}
 		},
-		removeCard: function (cardIdx, listName) {
+		removeCard: function (cardIdx, listName, ignoreDiscard) {
 			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]'),
 				discardPiles = $('.' + (discardPile[listName] || 'noDiscardPileDefined'));
 			// Only setting removed class to give some time for animations/transitions
 			for (var i = 0; i < targetCards.length; i++) {
-				// add card to discard pile
-				for (var j = 0; j < discardPiles.length; j++) {
-					var clone = targetCards[i].cloneNode(true);
-					discardPiles[0].appendChild(clone);
-					var toUpdate = $('[data-listname]', clone);
-					for (var j = 0; j < toUpdate.length; j++) {
-						toUpdate[j].setAttribute('data-listname', discardPile[listName]);
+				// add card to discard pile, unless it should be ignored
+				if (!ignoreDiscard) {
+					for (var j = 0; j < discardPiles.length; j++) {
+						var clone = targetCards[i].cloneNode(true);
+						discardPiles[0].appendChild(clone);
+						var toUpdate = $('[data-listname]', clone);
+						for (var j = 0; j < toUpdate.length; j++) {
+							toUpdate[j].setAttribute('data-listname', discardPile[listName]);
+						}
 					}
 				}
 				addClass(targetCards[i], 'removed');
