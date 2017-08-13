@@ -1,14 +1,11 @@
 // first off, load cards
-ajax('/cards.json', function (data) {
-	var cards = JSON.parse(data);
+synced.getCards(function (cards) {
 	// save uppercase value of name to have easy, performance case-insenstive search
 	// also save array index in object for easier referencing
 	for (var i = cards.length - 1; i >= 0; i--) {
 		cards[i].name_uppercase = cards[i].name.toUpperCase();
 		cards[i].idx = i;
 	}
-	// Pass cards to synced, since it doesn't load it itself (libraries wanting to add cards have to provide it)
-	synced.setCards(cards);
 
 	// handle card name search
 	document.body.addEventListener('keyup', function (e) {
@@ -20,7 +17,7 @@ ajax('/cards.json', function (data) {
 			resultsEl.innerHTML = '';
 			for (var i = cards.length - 1; i >= 0; i--) {
 				if (cards[i].name_uppercase.indexOf(searchTerm) > -1) {
-					resultsEl.appendChild(buildCardElement(cards[i], listName));
+					resultsEl.appendChild(buildCardElement(cards[i], '', listName));
 				}
 			}
 		}

@@ -8,10 +8,11 @@ block content
 				option(value="Video", selected=(videoType === 'Video')) Video
 				option(value="MJPEG", selected=(videoType === 'MJPEG')) MJPEG
 				option(value="M3U8", selected=(videoType === 'M3U8')) M3U8
+				option(value="Youtube", selected=(videoType === 'Youtube')) Youtube
 			label(for="videoType") Video Type
 		div.set
 			input(type="text", id="videoSrc", name="videoSrc", value=videoSrc)
-			label(for="videoSrc") Path to video stream
+			label(for="videoSrc") Path to video stream (or Youtube Video ID)
 		div.set
 			input(type="file", id="videoUpload", name="videoUpload")
 			label(for="videoUpload")

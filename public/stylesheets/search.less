@@ -1,9 +1,11 @@
-.cardsInList .synced[name="expandCard"],
-.cardsInList .synced[name="collapseCard"],
-.cardsInList .synced[name="removeCard"],
-.cardSelection .synced[name="addCard"] {
+.cardSelection .synced[name="moveCard"],
+.cardsInList .synced[name="moveCard"] {
 	display: inline-block;
 	opacity: 1;
+}
+.cardsInList .synced[name="expandCard"],
+.cardsInList .synced[name="collapseCard"] {
+	display: none;
 }
 .cardsInList,
 .cardSelection {
@@ -19,7 +21,4 @@
 			display: none;
 		}
 	}
-}
-.relevantButHiddenLists {
-	display: none;
 }

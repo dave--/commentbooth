@@ -76,16 +76,39 @@ var buildCardElement = (function () {
 	});
 	observer.observe(document.body, { childList: true, subtree: true });
 
+	var lists = [{
+		name: 'removeFromGame'
+	}, {
+		name: 'leftHand'
+	}, {
+		name: 'rightHand'
+	}, {
+		name: 'leftUnusedPlots'
+	}, {
+		name: 'leftCurrentPlot'
+	}, {
+		name: 'leftUsedPlots'
+	}, {
+		name: 'rightUnusedPlots'
+	}, {
+		name: 'rightCurrentPlot'
+	}, {
+		name: 'rightUsedPlots'
+	}];
+
 	// function that actually builds card panel html
-	return function (json, listName) {
+	return function (json, listName, defaultMoveTarget) {
 		var panel = document.createElement('div');
 		panel.className = 'panel style-' + json.faction_code + ' type-' + json.type_code + (json.expanded ? '' : ' collapsed');
 		panel.setAttribute('data-cardIdx', json.idx);
+		panel.setAttribute('data-cardCode', json.code);
 		var html = '';
 		html += '<h3 class="panel-title">';
-		if (listName) {
-			html += '<button type="button" class="synced" name="addCard" value="' + json.idx + '" data-listName="' + listName + '">Add</button>';
-			html += '<button type="button" class="synced" name="removeCard" value="' + json.idx + '" data-listName="' + listName + '">Remove</button>';
+		if (listName || defaultMoveTarget) {
+			html += '<button type="button" class="synced" name="moveCard" value="' + json.code + '" data-listName="' + listName + '">Move To</button>';
+			html += '<select name="moveTarget">';
+			html += lists.map(item => '<option' + (item.name === defaultMoveTarget ? ' selected>' : '>') + item.name + '</option>').join('');
+			html += '</select>';
 			html += '<button type="button" class="synced" name="expandCard" value="' + json.idx + '" data-listName="' + listName + '">Expand</button>';
 			html += '<button type="button" class="synced" name="collapseCard" value="' + json.idx + '" data-listName="' + listName + '">Collapse</button>';
 		}

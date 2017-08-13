@@ -1,0 +1,35 @@
+{
+	"video": {
+		"type": "Youtube",
+		"src": "640EP0IDCgQ",
+		"playState": "pause",
+		"volume": 1
+	},
+	"score": {
+		"left": 0,
+		"right": 0
+	},
+	"firstplayer": "none",
+	"challenge": "noChallenge",
+	"cards": {
+		"leftHand": {},
+		"rightHand": {},
+		"leftUnusedPlots": {},
+		"leftCurrentPlot": {},
+		"leftUsedPlots": {},
+		"rightUnusedPlots": {},
+		"rightCurrentPlot": {},
+		"rightUsedPlots": {},
+		"leftHidePlots": true,
+		"rightHidePlots": true,
+		"leftMisc": {
+			"agenda": "faction-lannister",
+			"faction": "05045"
+		},
+		"rightMisc": {
+			"agenda": "faction-targaryen",
+			"faction": "01200"
+		}
+	},
+	"playback": [{"offset":23000,"data":{"key":"cards.leftHand.1502545743239","val":"02037"}},{"offset":23000,"data":{"key":"cards.leftHand.1502545748589","val":"01085"}},{"offset":23000,"data":{"key":"cards.leftHand.1502545753685","val":"01102"}},{"offset":23000,"data":{"key":"cards.leftHand.1502545757388","val":"01044"}},{"offset":23000,"data":{"key":"cards.leftHand.1502545763348","val":"01099"}},{"offset":23000,"data":{"key":"cards.leftHand.1502545768308","val":"01087"}},{"offset":23000,"data":{"key":"cards.leftHand.1502545774453","val":"06038"}}]
+}

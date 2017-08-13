@@ -1,7 +1,50 @@
+function onYouTubeIframeAPIReady() {synced.YTReady()}
+// init websocket
+var socket = io.connect('http://localhost:8081');
 var synced = (function () {
-	var cards = [],
-		discardPile = {},
-		hls;
+	var cards = [
+			{"name": "none", "faction_code": "none", "type_code": "faction", "code": "faction-none"},
+			{"name": "Baratheon", "faction_code": "baratheon", "localsrc": "/baratheon.jpg", "type_code": "faction", "code": "faction-baratheon"},
+			{"name": "Greyjoy", "faction_code": "greyjoy", "localsrc": "/greyjoy.jpg", "type_code": "faction", "code": "faction-greyjoy"},
+			{"name": "Lannister", "faction_code": "lannister", "localsrc": "/lannister.jpg", "type_code": "faction", "code": "faction-lannister"},
+			{"name": "Martell", "faction_code": "martell", "localsrc": "/martell.jpg", "type_code": "faction", "code": "faction-martell"},
+			{"name": "Night\'s Watch", "faction_code": "thenightswatch", "localsrc": "/thenightswatch.jpg", "type_code": "faction", "code": "faction-thenightswatch"},
+			{"name": "Stark", "faction_code": "stark", "localsrc": "/stark.jpg", "type_code": "faction", "code": "faction-stark"},
+			{"name": "Targaryen", "faction_code": "targaryen", "localsrc": "/targaryen.jpg", "type_code": "faction", "code": "faction-targaryen"},
+			{"name": "Tyrell", "faction_code": "tyrell", "localsrc": "/tyrell.jpg", "type_code": "faction", "code": "faction-tyrell"}
+		],
+		hls
+		cardCBs = [],
+		ret = {
+			getCards: function (cb) {
+				cardCBs.push(cb);
+			},
+			getSocket: function () {
+				return socket;
+			},
+			YTReady: function () {
+				for (var i = 0; i < YTReadyListeners.length; i++) {
+					YTReadyListeners[i]();
+				}
+				afterYTReady = function (cb) { cb(); };
+			}
+		},
+		YTReadyListeners = [],
+		afterYTReady = function (cb) {
+			YTReadyListeners.push(cb);
+		};
+
+	// load cards
+	ajax('/cards.json', function (data) {
+		cards = cards.concat(JSON.parse(data));
+
+		ret.getCards = function (cb) {
+			cb(cards);
+		}
+		for (var i = 0; i < cardCBs.length; i++) {
+			cardCBs[i](cards);
+		}
+	})
 
 	// handle clicks on "synced" elements
 	document.body.addEventListener('click', function (e) {
@@ -13,19 +56,21 @@ var synced = (function () {
 					val: e.target.value
 				});
 			} else
-			// Add card to list
-			if (e.target.name === 'addCard' && cards) {
-				socket.emit('set', {
-					key: 'cards.' + e.target.getAttribute('data-listName') + '.' + Date.now(),
-					val: cards[e.target.value]
-				});
-			} else
-			// Remove card from list
-			if (e.target.name === 'removeCard') {
-				socket.emit('set', {
-					key: 'cards.' + e.target.getAttribute('data-listName') + '.' + e.target.value,
-					val: null
-				});
+			// move card from list to list
+			if (e.target.name === 'moveCard') {
+				if (e.target.getAttribute('data-listName').length > 0) {
+					socket.emit('set', {
+						key: 'cards.' + e.target.getAttribute('data-listName') + '.' + findParent(e.target, '[data-cardIdx]').getAttribute('data-cardIdx'),
+						val: null
+					});
+				}
+				var moveTarget = e.target.nextSibling;
+				if (moveTarget && moveTarget.value.length > 0) {
+					socket.emit('set', {
+						key: 'cards.' + moveTarget.value + '.' + Date.now(),
+						val: e.target.value
+					});
+				}
 			} else
 			// Remove card from list
 			if (e.target.name === 'expandCard') {
@@ -82,28 +127,28 @@ var synced = (function () {
 			if (e.target.name === 'factionLeft') {
 				socket.emit('set', {
 					key: 'cards.leftMisc.faction',
-					val: JSON.parse(e.target.value)
+					val: e.target.value
 				})
 			} else
 			// change right player faction
 			if (e.target.name === 'factionRight') {
 				socket.emit('set', {
 					key: 'cards.rightMisc.faction',
-					val: JSON.parse(e.target.value)
+					val: e.target.value
 				})
 			} else
 			// change left player agenda
 			if (e.target.name === 'agendaLeft') {
 				socket.emit('set', {
 					key: 'cards.leftMisc.agenda',
-					val: JSON.parse(e.target.value)
+					val: e.target.value
 				})
 			} else
 			// change right player agenda
 			if (e.target.name === 'agendaRight') {
 				socket.emit('set', {
 					key: 'cards.rightMisc.agenda',
-					val: JSON.parse(e.target.value)
+					val: e.target.value
 				})
 			} else
 			// change challenge icon
@@ -130,9 +175,6 @@ var synced = (function () {
 		}
 	});
 
-	// init websocket
-	var socket = io.connect('http://localhost:8081');
-
 	// handle initial data
 	socket.on('init', function (data) {
 		for (var listName in data.cards) {
@@ -150,7 +192,6 @@ var synced = (function () {
 		controller.setChallengeIcon(data.challenge);
 		controller.setPlotpileVisibility(data.leftHidePlots, 'left');
 		controller.setPlotpileVisibility(data.rightHidePlots, 'right');
-		discardPile = data.cards.discardPile;
 	});
 
 	// handle updates sent from server and decide which controller function to call
@@ -231,30 +272,19 @@ var synced = (function () {
 				controller.removeCard(cards[i].getAttribute('data-cardIdx'), listName, true);
 			}
 		},
-		addCard: function (cardIdx, listName, cardData) {
+		addCard: function (cardIdx, listName, cardCode) {
 			var targetLists = $('.' + listName);
+			var cardData = cards.filter(item => item.code === cardCode)[0];
 			cardData.idx = cardIdx;
 			for (var i = 0; i < targetLists.length; i++) {
 				var el = buildCardElement(cardData, listName);
 				targetLists[i].appendChild(el);
 			}
 		},
-		removeCard: function (cardIdx, listName, ignoreDiscard) {
-			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]'),
-				discardPiles = $('.' + (discardPile[listName] || 'noDiscardPileDefined'));
+		removeCard: function (cardIdx, listName) {
+			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]');
 			// Only setting removed class to give some time for animations/transitions
 			for (var i = 0; i < targetCards.length; i++) {
-				// add card to discard pile, unless it should be ignored
-				if (!ignoreDiscard) {
-					for (var j = 0; j < discardPiles.length; j++) {
-						var clone = targetCards[i].cloneNode(true);
-						discardPiles[0].appendChild(clone);
-						var toUpdate = $('[data-listname]', clone);
-						for (var j = 0; j < toUpdate.length; j++) {
-							toUpdate[j].setAttribute('data-listname', discardPile[listName]);
-						}
-					}
-				}
 				addClass(targetCards[i], 'removed');
 			}
 			// After a few seconds we should be fine with actually removing the dom element
@@ -262,10 +292,11 @@ var synced = (function () {
 				for (var i = 0; i < targetCards.length; i++) {
 					targetCards[i].parentNode.removeChild(targetCards[i]);
 				}
-			}, 5000);
+			}, 2000);
 		},
-		changeCard: function (cardIdx, listName, cardData) {
+		changeCard: function (cardIdx, listName, cardCode) {
 			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]');
+			var cardData = cards.filter(item => item.code === cardCode)[0];
 			cardData.idx = cardIdx;
 			for (var i = 0; i < targetCards.length; i++) {
 				var el = buildCardElement(cardData, listName);
@@ -308,11 +339,59 @@ var synced = (function () {
 							hls.on(Hls.Events.MEDIA_ATTACHED, function () {
 								hls.loadSource(src);
 							});
+						} else if (type === 'Youtube') {
+							var videoInit = false;
+							newVideoElement = document.createElement('div');
+							var YTContainer = document.createElement('div');
+							YTContainer.id = 'ytplayer';
+							newVideoElement.appendChild(YTContainer);
+
+							oldVideoElements[i].parentNode.replaceChild(newVideoElement, oldVideoElements[i]);
+							afterYTReady(function () {
+								player = new YT.Player('ytplayer', {
+									height: document.body.offsetHeight,
+									width: document.body.offsetWidth,
+									videoId: src,
+									playerVars: {
+										controls: 1,
+										disablekb: 1,
+										enablejsapi: 1,
+										showinfo: 0,
+										rel: 0,
+										modestbranding: 1
+									},
+									events: {
+										onReady: function () { },
+										onStateChange: function (event) {
+											if (event.data === 1) {
+												if (!videoInit) {
+													videoInit = true;
+													player.seekTo(0, true);
+												} else {
+													socket.emit('set', {
+														key: 'video.playState',
+														val: 'play'
+													});
+												}
+											}
+										}
+									}
+								});
+
+							})
+							newVideoElement.play = function () {
+								console.log('play');
+							}
+							newVideoElement.pause = function () {
+								console.log('pause');
+							}
 						}
 
 						newVideoElement.className = 'video';
 
-						oldVideoElements[i].parentNode.replaceChild(newVideoElement, oldVideoElements[i]);
+						if (oldVideoElements[i].parentNode) {
+							oldVideoElements[i].parentNode.replaceChild(newVideoElement, oldVideoElements[i]);
+						}
 					}
 					socket.emit('get', 'video.playState', function (playState) {
 						controller.changeVideoPlayState(playState);
@@ -321,7 +400,7 @@ var synced = (function () {
 			});
 		},
 		changeVideoPlayState: function (newPlayState) {
-			var videos = $('video');
+			var videos = $('.video');
 			for (var i = 0; i < videos.length; i++) {
 				videos[i][newPlayState]();
 			}
@@ -365,13 +444,6 @@ var synced = (function () {
 			}
 		}
 	}
-
-	return {
-		setCards: function (newCardsArray) {
-			cards = newCardsArray;
-		},
-		getSocket: function () {
-			return socket;
-		}
-	}
+	
+	return ret;
 })();

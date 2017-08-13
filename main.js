@@ -61,20 +61,12 @@ app.context.synced.initData({
 		'leftHidePlots': false,
 		'rightHidePlots': false,
 		'leftMisc': {
-			'agenda': {name: 'none', faction_code: 'none'},
-			'faction': {name: 'none', faction_code: 'none'}
+			'agenda': '00001',
+			'faction': '00001'
 		},
 		'rightMisc': {
-			'agenda': {name: 'none', faction_code: 'none'},
-			'faction': {name: 'none', faction_code: 'none'}
-		},
-		'discardPile': {
-			'leftUsedPlots': 'leftUnusedPlots',
-			'leftUnusedPlots': 'leftCurrentPlot',
-			'leftCurrentPlot': 'leftUsedPlots',
-			'rightUsedPlots': 'rightUnusedPlots',
-			'rightUnusedPlots': 'rightCurrentPlot',
-			'rightCurrentPlot': 'rightUsedPlots'
+			'agenda': '00001',
+			'faction': '00001'
 		}
 	}
 });

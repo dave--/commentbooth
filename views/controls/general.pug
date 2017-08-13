@@ -22,12 +22,12 @@ block content
 	div.set
 		select(id="factionLeft", name="factionLeft").synced
 			each val in factionCards
-				option(value=JSON.stringify(val), selected=(factionLeft.name === val.name))= val.name
+				option(value=val.code, selected=(factionLeft.name === val.name))= val.name
 		label(for="factionLeft") Left Player Faction
 	div.set
 		select(id="agendaLeft", name="agendaLeft").synced
 			each val in agendas
-				option(value=JSON.stringify(val), selected=(agendaLeft.name === val.name))= val.name
+				option(value=val.code, selected=(agendaLeft.name === val.name))= val.name
 		label(for="agendaLeft") Left Player Agenda
 	div.set
 		input(type="radio", id="leftMil", name="challenge", checked=(challenge === 'leftMil'), value="leftMil").synced
@@ -53,12 +53,12 @@ block content
 	div.set
 		select(id="factionRight", name="factionRight").synced
 			each val in factionCards
-				option(value=JSON.stringify(val), selected=(factionRight.name === val.name))= val.name
+				option(value=val.code, selected=(factionRight.name === val.name))= val.name
 		label(for="factionRight") Right Player Faction
 	div.set
 		select(id="agendaRight", name="agendaRight").synced
 			each val in agendas
-				option(value=JSON.stringify(val), selected=(agendaRight.name === val.name))= val.name
+				option(value=val.code, selected=(agendaRight.name === val.name))= val.name
 		label(for="agendaRight") Right Player Agenda
 	div.set
 		input(type="radio", id="rightMil", name="challenge", checked=(challenge === 'rightMil'), value="rightMil").synced
