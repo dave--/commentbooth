@@ -27,7 +27,6 @@
 .rightPlots {
 	.panel {
 		animation-name: growvertically;
-		float: none;
 
 		&.removed.collapsed,
 		&.removed {
@@ -68,6 +67,12 @@
 	width: @collapsedWidth + 4;
 	border: 0px solid transparent;
 	transition: border .5s ease;
+
+	&::after {
+		content: "";
+		display: block;
+		clear: both;
+	}
 }
 .rightUnusedPlots:not(:empty),
 .leftUnusedPlots:not(:empty) {
