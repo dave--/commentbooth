@@ -353,7 +353,7 @@ var synced = (function () {
 									width: document.body.offsetWidth,
 									videoId: src,
 									playerVars: {
-										controls: 1,
+										controls: 0,
 										disablekb: 1,
 										enablejsapi: 1,
 										showinfo: 0,
