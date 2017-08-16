@@ -3,7 +3,7 @@ function onYouTubeIframeAPIReady() {synced.YTReady()}
 var socket = io.connect('http://localhost:8081');
 var synced = (function () {
 	var cards = [
-			{"name": "none", "faction_code": "none", "type_code": "faction", "code": "faction-none"},
+			{"name": "none", "faction_code": "none", "type_code": "faction", "code": "none"},
 			{"name": "Baratheon", "faction_code": "baratheon", "localsrc": "/baratheon.jpg", "type_code": "faction", "code": "faction-baratheon"},
 			{"name": "Greyjoy", "faction_code": "greyjoy", "localsrc": "/greyjoy.jpg", "type_code": "faction", "code": "faction-greyjoy"},
 			{"name": "Lannister", "faction_code": "lannister", "localsrc": "/lannister.jpg", "type_code": "faction", "code": "faction-lannister"},
@@ -274,7 +274,7 @@ var synced = (function () {
 		},
 		addCard: function (cardIdx, listName, cardCode) {
 			var targetLists = $('.' + listName);
-			var cardData = cards.filter(item => item.code === cardCode)[0];
+			var cardData = cards.find(item => item.code === cardCode);
 			cardData.idx = cardIdx;
 			for (var i = 0; i < targetLists.length; i++) {
 				var el = buildCardElement(cardData, listName);
@@ -296,7 +296,7 @@ var synced = (function () {
 		},
 		changeCard: function (cardIdx, listName, cardCode) {
 			var targetCards = $('.' + listName + ' [data-cardIdx="' + cardIdx + '"]');
-			var cardData = cards.filter(item => item.code === cardCode)[0];
+			var cardData = cards.find(item => item.code === cardCode);
 			cardData.idx = cardIdx;
 			for (var i = 0; i < targetCards.length; i++) {
 				var el = buildCardElement(cardData, listName);

@@ -4,7 +4,7 @@ const path = require('path');
 const pathToJson = path.join(__dirname, '../../public/cards.json');
 
 const factionCards = [
-	{"name": "none", "faction_code": "none", "type_code": "faction", "code": "faction-none"},
+	{"name": "none", "faction_code": "none", "type_code": "faction", "code": "none"},
 	{"name": "Baratheon", "faction_code": "baratheon", "localsrc": "/baratheon.jpg", "type_code": "faction", "code": "faction-baratheon"},
 	{"name": "Greyjoy", "faction_code": "greyjoy", "localsrc": "/greyjoy.jpg", "type_code": "faction", "code": "faction-greyjoy"},
 	{"name": "Lannister", "faction_code": "lannister", "localsrc": "/lannister.jpg", "type_code": "faction", "code": "faction-lannister"},
@@ -38,7 +38,7 @@ module.exports = function* () {
 			}
 		});
 	}
-	agendas = [{"name": "none", "faction_code": "none", "type_code": "agenda", "code": "agenda-none"}].concat(agendas);
+	agendas = [{"name": "none", "faction_code": "none", "type_code": "agenda", "code": "none"}].concat(agendas);
 	// serve view
 	this.render('controls/general', {
 		scoreLeft: this.synced.get('score.left'),

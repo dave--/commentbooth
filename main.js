@@ -38,10 +38,10 @@ app.context.synced = require('./lib/synced');
 app.context.synced.setIO(io);
 app.context.synced.initData({
 	'video': {
-		type: 'Video',
-		src: '/video',
-		playState: 'pause',
-		volume: 1
+		'type': 'Video',
+		'src': '/video',
+		'playState': 'pause',
+		'volume': 1
 	},
 	'score': {
 		'left': 0,
@@ -61,12 +61,12 @@ app.context.synced.initData({
 		'leftHidePlots': false,
 		'rightHidePlots': false,
 		'leftMisc': {
-			'agenda': '00001',
-			'faction': '00001'
+			'agenda': 'none',
+			'faction': 'none'
 		},
 		'rightMisc': {
-			'agenda': '00001',
-			'faction': '00001'
+			'agenda': 'none',
+			'faction': 'none'
 		}
 	}
 });
