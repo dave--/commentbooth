@@ -67,7 +67,7 @@ var synced = (function () {
 				var moveTarget = e.target.nextSibling;
 				if (moveTarget && moveTarget.value.length > 0) {
 					socket.emit('set', {
-						key: 'cards.' + moveTarget.value + '.' + cards.find(item => item.code === '01065').label.toLowerCase().replace(/[^a-z()]/g, '-') + Date.now(),
+						key: 'cards.' + moveTarget.value + '.' + cards.find(item => item.code === e.target.value).label.toLowerCase().replace(/[^a-z()]/g, '-') + Date.now(),
 						val: e.target.value
 					});
 				}
