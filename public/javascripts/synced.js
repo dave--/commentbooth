@@ -1,6 +1,6 @@
 function onYouTubeIframeAPIReady() {synced.YTReady()}
 // init websocket
-var socket = io.connect('http://localhost:8081');
+var socket = io.connect('http://' + location.host.substr(0, location.host.indexOf(':')) + ':8081');
 var synced = (function () {
 	var cards = [
 			{"name": "none", "faction_code": "none", "type_code": "faction", "code": "none"},

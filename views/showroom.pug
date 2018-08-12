@@ -35,7 +35,8 @@ html(lang="en")
 
 		div.challengeIcon
 
-		script(src="//localhost:8081/socket.io/socket.io.js")
+		script
+			| document.write('<script src="http://' + location.host.substr(0, location.host.indexOf(':')) + ':8081/socket.io/socket.io.js"></scr' + 'ipt>');
 		script(src="/javascripts/youtube.js")
 		script(src="/javascripts/hls.js")
 		script(src="/javascripts/helper.js")
