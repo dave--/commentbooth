@@ -11,64 +11,66 @@ block content
 		input(type="radio", id="noChallenge", name="challenge", checked=(challenge === 'noChallenge'), value="noChallenge").synced
 		label(for="noChallenge") Hide Challenge Icon
 
-	hr
-	h2 Left Player
-	div.set
-		input(id="firstplayerLeft", type="radio", name="firstplayer", checked=(firstplayer === 'left'), value="left").synced
-		label(for="firstplayerLeft") Is First Player
-	div.set
-		input(type="number", id="scoreLeft", name="scoreLeft", value=scoreLeft, step="1", min="0", max="15").synced
-		label(for="scoreLeft") Score
-	div.set
-		select(id="factionLeft", name="factionLeft").synced
-			each val in factionCards
-				option(value=val.code, selected=(factionLeft.name === val.name))= val.name
-		label(for="factionLeft") Left Player Faction
-	div.set
-		select(id="agendaLeft", name="agendaLeft").synced
-			each val in agendas
-				option(value=val.code, selected=(agendaLeft.name === val.name))= val.name
-		label(for="agendaLeft") Left Player Agenda
-	div.set
-		input(type="radio", id="leftMil", name="challenge", checked=(challenge === 'leftMil'), value="leftMil").synced
-		label(for="leftMil") Show Military Challenge Icon
-	div.set
-		input(type="radio", id="leftInt", name="challenge", checked=(challenge === 'leftInt'), value="leftInt").synced
-		label(for="leftInt") Show Intrigue Challenge Icon
-	div.set
-		input(type="radio", id="leftPower", name="challenge", checked=(challenge === 'leftPower'), value="leftPower").synced
-		label(for="leftPower") Show Power Challenge Icon
-	div.set
-		input(type="checkbox" id="leftHidePlots", name="leftHidePlots", checked=leftHidePlots, value="true").synced
-		label(for="leftHidePlots") Hide unused and used plots
+	div.ctrlsLeft
+		hr
+		h2 Left Player
+		div.set
+			input(id="firstplayerLeft", type="radio", name="firstplayer", checked=(firstplayer === 'left'), value="left").synced
+			label(for="firstplayerLeft") Is First Player
+		div.set
+			input(type="number", id="scoreLeft", name="scoreLeft", value=scoreLeft, step="1", min="0", max="15", pattern="\\d*").synced
+			label(for="scoreLeft") Score
+		div.set
+			input(type="radio", id="leftMil", name="challenge", checked=(challenge === 'leftMil'), value="leftMil").synced
+			label(for="leftMil") Show Military Challenge Icon
+		div.set
+			input(type="radio", id="leftInt", name="challenge", checked=(challenge === 'leftInt'), value="leftInt").synced
+			label(for="leftInt") Show Intrigue Challenge Icon
+		div.set
+			input(type="radio", id="leftPower", name="challenge", checked=(challenge === 'leftPower'), value="leftPower").synced
+			label(for="leftPower") Show Power Challenge Icon
+		div.set
+			select(id="factionLeft", name="factionLeft").synced
+				each val in factionCards
+					option(value=val.code, selected=(factionLeft.name === val.name))= val.name
+			label(for="factionLeft") Left Player Faction
+		div.set
+			select(id="agendaLeft", name="agendaLeft").synced
+				each val in agendas
+					option(value=val.code, selected=(agendaLeft.name === val.name))= val.name
+			label(for="agendaLeft") Left Player Agenda
+		div.set
+			input(type="checkbox" id="leftHidePlots", name="leftHidePlots", checked=leftHidePlots, value="true").synced
+			label(for="leftHidePlots") Hide unused and used plots
 
-	hr
-	h2 Right Player
-	div.set
-		input(id="firstplayerRight", type="radio", name="firstplayer", checked=(firstplayer === 'right'), value="right").synced
-		label(for="firstplayerRight") Is First Player
-	div.set
-		input(type="number", id="scoreRight", name="scoreRight", value=scoreRight, step="1", min="0", max="15").synced
-		label(for="scoreRight") Score Right
-	div.set
-		select(id="factionRight", name="factionRight").synced
-			each val in factionCards
-				option(value=val.code, selected=(factionRight.name === val.name))= val.name
-		label(for="factionRight") Right Player Faction
-	div.set
-		select(id="agendaRight", name="agendaRight").synced
-			each val in agendas
-				option(value=val.code, selected=(agendaRight.name === val.name))= val.name
-		label(for="agendaRight") Right Player Agenda
-	div.set
-		input(type="radio", id="rightMil", name="challenge", checked=(challenge === 'rightMil'), value="rightMil").synced
-		label(for="rightMil") Show Military Challenge Icon
-	div.set
-		input(type="radio", id="rightInt", name="challenge", checked=(challenge === 'rightInt'), value="rightInt").synced
-		label(for="rightInt") Show Intrigue Challenge Icon
-	div.set
-		input(type="radio", id="rightPower", name="challenge", checked=(challenge === 'rightPower'), value="rightPower").synced
-		label(for="rightPower") Show Power Challenge Icon
-	div.set
-		input(type="checkbox" id="rightHidePlots", name="rightHidePlots", checked=rightHidePlots, value="true").synced
-		label(for="rightHidePlots") Hide unused and used plots
+	div.ctrlsRight
+		hr
+		h2 Right Player
+		div.set
+			input(id="firstplayerRight", type="radio", name="firstplayer", checked=(firstplayer === 'right'), value="right").synced
+			label(for="firstplayerRight") Is First Player
+		div.set
+			input(type="number", id="scoreRight", name="scoreRight", value=scoreRight, step="1", min="0", max="15", pattern="\\d*").synced
+			label(for="scoreRight") Score Right
+		div.set
+			input(type="radio", id="rightMil", name="challenge", checked=(challenge === 'rightMil'), value="rightMil").synced
+			label(for="rightMil") Show Military Challenge Icon
+		div.set
+			input(type="radio", id="rightInt", name="challenge", checked=(challenge === 'rightInt'), value="rightInt").synced
+			label(for="rightInt") Show Intrigue Challenge Icon
+		div.set
+			input(type="radio", id="rightPower", name="challenge", checked=(challenge === 'rightPower'), value="rightPower").synced
+			label(for="rightPower") Show Power Challenge Icon
+		div.set
+			select(id="factionRight", name="factionRight").synced
+				each val in factionCards
+					option(value=val.code, selected=(factionRight.name === val.name))= val.name
+			label(for="factionRight") Right Player Faction
+		div.set
+			select(id="agendaRight", name="agendaRight").synced
+				each val in agendas
+					option(value=val.code, selected=(agendaRight.name === val.name))= val.name
+			label(for="agendaRight") Right Player Agenda
+		div.set
+			input(type="checkbox" id="rightHidePlots", name="rightHidePlots", checked=rightHidePlots, value="true").synced
+			label(for="rightHidePlots") Hide unused and used plots
